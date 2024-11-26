@@ -85,8 +85,34 @@ class ViewController: UIViewController {
     }
     
     private func triggerHapticClick() {
-        let notificationGenerator = UINotificationFeedbackGenerator()
-        notificationGenerator.notificationOccurred(.success)
+        // Use a heavy style for a "hard" haptic pattern
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+        
+        // Generate a sequence of intense haptic feedback
+        feedbackGenerator.prepare()
+        feedbackGenerator.impactOccurred() // First strong feedback
+        
+        // Add quick repetitions for more impact
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            feedbackGenerator.prepare()
+            feedbackGenerator.impactOccurred()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            feedbackGenerator.prepare()
+            feedbackGenerator.impactOccurred()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            feedbackGenerator.prepare()
+            feedbackGenerator.impactOccurred()
+        }
+        
+        // Pause slightly for emphasis, then a final heavy impact
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            feedbackGenerator.prepare()
+            feedbackGenerator.impactOccurred()
+        }
         hapticGenerator = nil // Reset haptic generator after a successful touch
     }
 }
